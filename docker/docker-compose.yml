@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: genomeflow-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: genomeflow
+      POSTGRES_PASSWORD: genomeflow
+      POSTGRES_DB: genomeflow
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
