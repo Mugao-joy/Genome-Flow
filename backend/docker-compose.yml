@@ -26,6 +26,22 @@ services:
     volumes:
       - minio_data:/data
 
+  redis:
+    image: redis:7
+    container_name: genomeflow-redis
+    ports:
+      - "6379:6379"
+
+  worker:
+    build: .
+    container_name: genomeflow-worker
+    command: celery -A worker.celery worker --loglevel=info
+    depends_on:
+      - redis
+      - postgres
+      - minio
+    
+
 volumes:
   pgdata:
   minio_data:
